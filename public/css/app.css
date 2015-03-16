@@ -1,0 +1,25 @@
+body {
+    
+}
+
+
+.completed-true {
+  text-decoration: line-through;
+  color: grey;
+}
+
+#searchTodo {
+    display: block;
+    width: 30%;
+    border: 2px solid black;
+    padding: 5px;
+    margin: 5px 0 5px 0;
+}
+
+#newTodo {
+    display: block;
+    width: 30%;
+    border: 2px solid black;
+    padding: 5px;
+    margin: 5px 0 5px 0;
+}
