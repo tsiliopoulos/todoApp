@@ -1,5 +1,9 @@
 // Import passport module
 var LocalStrategy = require('passport-local').Strategy;
+var GitHubStrategy = require('passport-github').Strategy;
+
+var GITHUB_CLIENT_ID = "--insert-github-client-id-here";
+var GITHUB_CLIENT_SECRET = "--insert-github-client-secret-here--";
 
 // Import the user model
 var User = require('../../server/models/user');
@@ -93,4 +97,33 @@ module.exports = function(passport) {
             }
         });
     }));
+    
+    // Configure GitHub Strategy
+    passport.use(new GitHubStrategy({
+        clientID: "b1741ab24687221bf256",
+        clientSecret: "a13eb6726de1017fb0fd033833e83cebc6a39b55",
+        callbackURL: "http://127.0.0.1:3000/auth/github/callback"
+      },
+      function(accessToken, refreshToken, profile, done) {
+        User.findOne({ 'github.oauthID': profile.id }, function(err, user) {
+         if(err) { console.log(err); }
+         if (!err && user != null) {
+            done(null, user);
+         } else {
+         
+             // create the user
+            var newUser = new User();
+            newUser.github.oauthID = profile.id;
+            newUser.github.name = profile.displayName;
+            newUser.github.created = Date.now();
+            newUser.save(function(err) {
+                if (err) { throw err; }
+                return done(null, newUser);
+            });     
+             
+         } // end-else
+        });
+    }));
+
+    
 };

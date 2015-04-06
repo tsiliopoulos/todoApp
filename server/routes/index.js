@@ -63,4 +63,15 @@ router.post('/register', passport.authenticate('local-signup', {
     failureFlash : true
 }));
 
+router.get('/auth/github', passport.authenticate('github'),
+    function(req, res){
+});
+
+router.get('/auth/github/callback', passport.authenticate('github', { 
+    successRedirect : '/',
+    failureRedirect: '/login', 
+    failureFlash:true
+}));
+
+
 module.exports = router;

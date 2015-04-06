@@ -8,8 +8,14 @@ var userSchema = new Schema({
     local: {
         email: String,
         password: String,
+    },
+    github: {
+        oauthID: Number,
+        name: String,
+        created: Date
     }
 });
+
 
 // generating a hash
 userSchema.methods.generateHash = function(password) {
