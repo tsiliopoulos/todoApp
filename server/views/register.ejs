@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+  <% include common/head %>
+  <body>
+   
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Angular TODO App</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav nav-pills" role="tablist">
+            <li role="presentation"><a href="/">Home</a></li>
+            <li role="presentation" class="active"><a href="#">Register<span class="sr-only">(current)</span></a></li>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+        
+    <div class="container">
+        <div class="panel panel-primary">
+         <div class="page-header panel-heading">
+                <h1>Register</h1>
+         </div>
+          <div class="panel-body">
+            
+            <% if (message.length > 0) { %>
+            <div class="alert alert-danger"><%= message %></div>
+            <% } %>
+            <form action="/register" method="post" class="form-signin">
+               <h2 class="form-signin-heading">Please Register</h2>
+                <fieldset>
+                   <label for="inputEmail" class="sr-only">Email address</label>
+                    <input id="email" class="form-control" type="email" placeholder="Email Address" name="email" required autofocus>
+                     <label for="inputPassword" class="sr-only">Password</label>
+                    <input id="password" class="form-control" type="password" placeholder="Password" name="password" required>
+                    <button type="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
+                    <p>Have an account? <a href="/login">Login</a></p>
+                </fieldset>
+            </form>
+
+            </div>
+        </div>
+    </div>
+        
+     <% include common/footer %>
+    </body>
+</html>
