@@ -63,11 +63,23 @@ router.post('/register', passport.authenticate('local-signup', {
     failureFlash : true
 }));
 
+/* GITHUB Login Strategy Routes */
 router.get('/auth/github', passport.authenticate('github'),
     function(req, res){
 });
 
 router.get('/auth/github/callback', passport.authenticate('github', { 
+    successRedirect : '/',
+    failureRedirect: '/login', 
+    failureFlash:true
+}));
+
+/* TWITTER Login Strategy Routes */
+router.get('/auth/twitter', passport.authenticate('twitter'),
+    function(req, res){
+});
+
+router.get('/auth/twitter/callback', passport.authenticate('twitter', { 
     successRedirect : '/',
     failureRedirect: '/login', 
     failureFlash:true

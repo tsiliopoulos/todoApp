@@ -1,9 +1,13 @@
 // Import passport module
 var LocalStrategy = require('passport-local').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
+var TwitterStrategy = require('passport-twitter').Strategy;
 
 var GITHUB_CLIENT_ID = "b1741ab24687221bf256";
 var GITHUB_CLIENT_SECRET = "a13eb6726de1017fb0fd033833e83cebc6a39b55";
+
+var TWITTER_CLIENT_ID = "FbxNueLEGmpCFMEbAcq03NbEV";
+var TWITTER_CLIENT_SECRET = "HL5LpihBWoXJsiUVdMn55i8pbGnao17eQLIA1wWk9x4wtScgS0";
 
 // Import the user model
 var User = require('../../server/models/user');
@@ -117,6 +121,34 @@ module.exports = function(passport) {
             newUser.github.oauthID = profile.id;
             newUser.github.name = profile.displayName;
             newUser.github.created = Date.now();
+            newUser.save(function(err) {
+                if (err) { throw err; }
+                return done(null, newUser);
+            });     
+             
+         } // end-else
+        });
+    }));
+
+    // Configure GitHub Strategy
+    passport.use(new TwitterStrategy({
+        clientID: TWITTER_CLIENT_ID,
+        clientSecret: TWITTER_CLIENT_SECRET,
+        callbackURL: "/auth/twitter/callback" // heroku deployment
+        //callbackURL: "http://127.0.0.1:3000/auth/github/callback" - before heroku deployment
+      },
+      function(accessToken, refreshToken, profile, done) {
+        User.findOne({ 'twitter.oauthID': profile.id }, function(err, user) {
+         if(err) { console.log(err); }
+         if (!err && user != null) {
+            done(null, user);
+         } else {
+         
+             // create the user
+            var newUser = new User();
+            newUser.twitter.oauthID = profile.id;
+            newUser.twitter.name = profile.displayName;
+            newUser.twitter.created = Date.now();
             newUser.save(function(err) {
                 if (err) { throw err; }
                 return done(null, newUser);

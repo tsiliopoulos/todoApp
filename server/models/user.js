@@ -13,6 +13,11 @@ var userSchema = new Schema({
         oauthID: Number,
         name: String,
         created: Date
+    },
+    twitter: {
+        oauthID: Number,
+        name: String,
+        created: Date
     }
 });
 
