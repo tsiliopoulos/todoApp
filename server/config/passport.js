@@ -2,8 +2,8 @@
 var LocalStrategy = require('passport-local').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
 
-var GITHUB_CLIENT_ID = "--insert-github-client-id-here";
-var GITHUB_CLIENT_SECRET = "--insert-github-client-secret-here--";
+var GITHUB_CLIENT_ID = "b1741ab24687221bf256";
+var GITHUB_CLIENT_SECRET = "a13eb6726de1017fb0fd033833e83cebc6a39b55";
 
 // Import the user model
 var User = require('../../server/models/user');
@@ -100,8 +100,8 @@ module.exports = function(passport) {
     
     // Configure GitHub Strategy
     passport.use(new GitHubStrategy({
-        clientID: "b1741ab24687221bf256",
-        clientSecret: "a13eb6726de1017fb0fd033833e83cebc6a39b55",
+        clientID: GITHUB_CLIENT_ID,
+        clientSecret: GITHUB_CLIENT_SECRET,
         callbackURL: "http://127.0.0.1:3000/auth/github/callback"
       },
       function(accessToken, refreshToken, profile, done) {
