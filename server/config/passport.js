@@ -102,7 +102,7 @@ module.exports = function(passport) {
     passport.use(new GitHubStrategy({
         clientID: GITHUB_CLIENT_ID,
         clientSecret: GITHUB_CLIENT_SECRET,
-        callbackURL: "http://todo-centennial.herokuapp.com/auth/github/callback" // heroku deployment
+        callbackURL: "/auth/github/callback" // heroku deployment
         //callbackURL: "http://127.0.0.1:3000/auth/github/callback" - before heroku deployment
       },
       function(accessToken, refreshToken, profile, done) {
