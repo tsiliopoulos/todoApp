@@ -166,10 +166,11 @@ module.exports = function(passport) {
     passport.use(new LinkedInStrategy({
         consumerKey: LINKEDIN_API_KEY,
         consumerSecret: LINKEDIN_SECRET_KEY,
-        callbackURL: "/auth/linkedin/callback" // heroku deployment
-        //callbackURL: "http://127.0.0.1:3000/auth/github/callback" - before heroku deployment
+        callbackURL: "/auth/linkedin/callback",
+        passReqToCallback: true,
+        profileFields: ['id', 'first-name', 'last-name', 'email-address']
       },
-      function(accessToken, refreshToken, profile, done) {
+      function(req, accessToken, refreshToken, profile, done) {
         User.findOne({ 'linkedin.oauthID': profile.id }, function(err, user) {
          if(err) { console.log(err); }
          if (!err && user != null) {
