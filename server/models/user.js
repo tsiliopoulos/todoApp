@@ -20,7 +20,7 @@ var userSchema = new Schema({
         created: Date
     },
     linkedin: {
-        oauthID: Number,
+        //oauthID: Number,
         name: String,
         created: Date
     }

@@ -178,7 +178,7 @@ module.exports = function(passport) {
          
              // create the user
             var newUser = new User();
-            newUser.linkedin.oauthID = profile.id;
+            //newUser.linkedin.oauthID = profile.id;
             newUser.linkedin.name = profile.displayName;
             newUser.linkedin.created = Date.now();
             newUser.save(function(err) {
