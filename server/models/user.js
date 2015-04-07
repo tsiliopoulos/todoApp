@@ -18,6 +18,11 @@ var userSchema = new Schema({
         oauthID: Number,
         name: String,
         created: Date
+    },
+    linkedin: {
+        oauthID: Number,
+        name: String,
+        created: Date
     }
 });
 

@@ -85,5 +85,16 @@ router.get('/auth/twitter/callback', passport.authenticate('twitter', {
     failureFlash:true
 }));
 
+/* LinkedIn Login Strategy Routes */
+router.get('/auth/linkedin', passport.authenticate('linkedin'),
+    function(req, res){
+});
+
+router.get('/auth/linkedin/callback', passport.authenticate('linkedin', { 
+    successRedirect : '/',
+    failureRedirect: '/login', 
+    failureFlash:true
+}));
+
 
 module.exports = router;

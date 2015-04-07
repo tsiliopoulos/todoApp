@@ -2,12 +2,16 @@
 var LocalStrategy = require('passport-local').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
+var LinkedInStrategy = require('passport-linkedin').Strategy;
 
 var GITHUB_CLIENT_ID = "b1741ab24687221bf256";
 var GITHUB_CLIENT_SECRET = "a13eb6726de1017fb0fd033833e83cebc6a39b55";
 
 var TWITTER_CONSUMER_KEY = "FbxNueLEGmpCFMEbAcq03NbEV";
 var TWITTER_CONSUMER_SECRET = "HL5LpihBWoXJsiUVdMn55i8pbGnao17eQLIA1wWk9x4wtScgS0";
+
+var LINKEDIN_API_KEY = '75gulnge27yprq';
+var LINKEDIN_SECRET_KEY = 'msZMcYEddSqzOQ2t';
 
 // Import the user model
 var User = require('../../server/models/user');
@@ -130,7 +134,7 @@ module.exports = function(passport) {
         });
     }));
 
-    // Configure GitHub Strategy
+    // Configure Twitter Strategy
     passport.use(new TwitterStrategy({
         consumerKey: TWITTER_CONSUMER_KEY,
         consumerSecret: TWITTER_CONSUMER_SECRET,
@@ -158,5 +162,32 @@ module.exports = function(passport) {
         });
     }));
 
+    // Configure LinkedIn Strategy
+    passport.use(new LinkedInStrategy({
+        consumerKey: LINKEDIN_API_KEY,
+        consumerSecret: LINKEDIN_SECRET_KEY,
+        callbackURL: "/auth/linkedin/callback" // heroku deployment
+        //callbackURL: "http://127.0.0.1:3000/auth/github/callback" - before heroku deployment
+      },
+      function(accessToken, refreshToken, profile, done) {
+        User.findOne({ 'linkedin.oauthID': profile.id }, function(err, user) {
+         if(err) { console.log(err); }
+         if (!err && user != null) {
+            done(null, user);
+         } else {
+         
+             // create the user
+            var newUser = new User();
+            newUser.linkedin.oauthID = profile.id;
+            newUser.linkedin.name = profile.displayName;
+            newUser.linkedin.created = Date.now();
+            newUser.save(function(err) {
+                if (err) { throw err; }
+                return done(null, newUser);
+            });     
+             
+         } // end-else
+        });
+    }));
     
 };
