@@ -167,7 +167,6 @@ module.exports = function(passport) {
         consumerKey: LINKEDIN_API_KEY,
         consumerSecret: LINKEDIN_SECRET_KEY,
         callbackURL: "/auth/linkedin/callback",
-        passReqToCallback: true,
         profileFields: ['id', 'first-name', 'last-name', 'email-address']
       },
       function(req, accessToken, refreshToken, profile, done) {
