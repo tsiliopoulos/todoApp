@@ -102,8 +102,7 @@ router.get('/auth/google', passport.authenticate('google',{
     scope: [
       'https://www.googleapis.com/auth/userinfo.profile',
       'https://www.googleapis.com/auth/userinfo.email'
-    ],
-    session: false
+    ]
 }),
     function(req, res){
 });
@@ -115,7 +114,6 @@ router.get('/auth/google/callback', passport.authenticate('google', {
       'https://www.googleapis.com/auth/userinfo.profile',
       'https://www.googleapis.com/auth/userinfo.email'
     ],
-    session: false,
     failureFlash:true
 }));
 
