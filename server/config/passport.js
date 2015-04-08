@@ -3,7 +3,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 var LinkedInStrategy = require('passport-linkedin').Strategy;
-var GoogleStrategy = require('passport-google-oauth').OAuthStrategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 var GITHUB_CLIENT_ID = "b1741ab24687221bf256";
 var GITHUB_CLIENT_SECRET = "a13eb6726de1017fb0fd033833e83cebc6a39b55";

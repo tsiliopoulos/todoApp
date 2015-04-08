@@ -97,13 +97,25 @@ router.get('/auth/linkedin/callback', passport.authenticate('linkedin', {
 }));
 
 /* GOOGLE Login Strategy Routes */
-router.get('/auth/google', passport.authenticate('google'),
+router.get('/auth/google', passport.authenticate('google',{
+    failureRedirect: '/login', 
+    scope: [
+      'https://www.googleapis.com/auth/userinfo.profile',
+      'https://www.googleapis.com/auth/userinfo.email'
+    ],
+    session: false
+}),
     function(req, res){
 });
 
 router.get('/auth/google/callback', passport.authenticate('google', { 
     successRedirect : '/',
     failureRedirect: '/login', 
+    scope: [
+      'https://www.googleapis.com/auth/userinfo.profile',
+      'https://www.googleapis.com/auth/userinfo.email'
+    ],
+    session: false,
     failureFlash:true
 }));
 
