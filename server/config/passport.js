@@ -3,6 +3,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 var LinkedInStrategy = require('passport-linkedin').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 var GITHUB_CLIENT_ID = "b1741ab24687221bf256";
 var GITHUB_CLIENT_SECRET = "a13eb6726de1017fb0fd033833e83cebc6a39b55";
@@ -12,6 +13,9 @@ var TWITTER_CONSUMER_SECRET = "HL5LpihBWoXJsiUVdMn55i8pbGnao17eQLIA1wWk9x4wtScgS
 
 var LINKEDIN_API_KEY = '75gulnge27yprq';
 var LINKEDIN_SECRET_KEY = 'msZMcYEddSqzOQ2t';
+
+var GOOGLE_CONSUMER_KEY = '272498413023-di195aa6eaog4kpi5cba0llq28ct5b4a.apps.googleusercontent.com';
+var GOOGLE_CONSUMER_SECRET = 'mNBAC9oreAiPQv69A-vjZipg';
 
 // Import the user model
 var User = require('../../server/models/user');
@@ -181,6 +185,33 @@ module.exports = function(passport) {
             //newUser.linkedin.oauthID = profile.id;
             newUser.linkedin.name = profile.displayName;
             newUser.linkedin.created = Date.now();
+            newUser.save(function(err) {
+                if (err) { throw err; }
+                return done(null, newUser);
+            });     
+             
+         } // end-else
+        });
+    }));
+    
+    // Configure Google Strategy
+    passport.use(new GoogleStrategy({
+        clientID: GOOGLE_CONSUMER_KEY,
+        clientSecret: GOOGLE_CONSUMER_SECRET,
+        callbackURL: "/auth/google/callback" 
+      },
+      function(accessToken, refreshToken, profile, done) {
+        User.findOne({ 'google.oauthID': profile.id }, function(err, user) {
+         if(err) { console.log(err); }
+         if (!err && user != null) {
+            done(null, user);
+         } else {
+         
+             // create the user
+            var newUser = new User();
+            newUser.google.oauthID = profile.id;
+            newUser.google.name = profile.displayName;
+            newUser.google.created = Date.now();
             newUser.save(function(err) {
                 if (err) { throw err; }
                 return done(null, newUser);

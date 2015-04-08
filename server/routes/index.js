@@ -96,5 +96,17 @@ router.get('/auth/linkedin/callback', passport.authenticate('linkedin', {
     failureFlash:true
 }));
 
+/* GOOGLE Login Strategy Routes */
+router.get('/auth/google', passport.authenticate('google'),
+    function(req, res){
+});
+
+router.get('/auth/google/callback', passport.authenticate('google', { 
+    successRedirect : '/',
+    failureRedirect: '/login', 
+    failureFlash:true
+}));
+
+
 
 module.exports = router;
