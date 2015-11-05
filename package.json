@@ -1,0 +1,46 @@
+{
+  "name": "todoApp",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.10.2",
+    "compression": "^1.6.0",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^0.8.2",
+    "cookie-parser": "^1.3.5",
+    "debug": "^2.1.3",
+    "ejs": "^2.2.4",
+    "express": "^4.11.2",
+    "express-session": "^1.12.1",
+    "method-override": "^2.3.5",
+    "mongo-connect": "0.0.6",
+    "mongoose": "^3.9.7",
+    "morgan": "^1.5.3",
+    "nodemon": "^1.3.7",
+    "passport": "^0.2.2",
+    "passport-github": "^0.1.5",
+    "passport-google-oauth": "^0.2.0",
+    "passport-linkedin": "^0.1.3",
+    "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.3",
+    "serve-favicon": "^2.2.1",
+    "view-helpers": "^0.1.5"
+  },
+  "description": "An example todo App built with the MEAN stack",
+  "main": "app.js",
+  "devDependencies": {},
+  "author": "Tom Tsiliopoulos",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tsiliopoulos/todoApp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tsiliopoulos/todoApp/issues"
+  },
+  "homepage": "https://github.com/tsiliopoulos/todoApp"
+}

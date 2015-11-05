@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+    <% include common/head %>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Angular TODO App</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav nav-pills" role="tablist">
+            <li role="presentation"><a href="/">Home</a></li>
+            <li role="presentation" class="active"><a href="#">Profile<span class="sr-only">(current)</span></a></li>
+            <li role="presentation"><a href="/logout">Logout</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    
+    <div class="container">
+      <div class="panel panel-primary">
+         <div class="page-header panel-heading">
+               <h1>Profile</h1>
+           </div>
+          <div class="panel-body">
+            <div class="datails">
+                <h3><span class="fa fa-user"></span> User Details</h3>
+                <p> Welcome - <strong>User</strong>:
+                <%= user.local.email %>
+                <%= user.github.name %>
+                <%= user.twitter.name %>
+                <%= user.linkedin.name %>
+                <%= user.google.name %>
+                <br>
+                </p>
+            </div>
+            </div>
+        </div>
+    </div>
+    <% include common/footer %>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+      <% include common/head %>
+  <body>
+   <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Angular TODO App</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li role="presentation"  class="active"><a href="/">Home<span class="sr-only">(current)</span></a></li>
+        <li role="presentation" ><a href="/profile">Profile</a></li>
+        <li role="presentation" ><a href="/logout">Logout</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+  
+   <div class="container">
+       <ng-view></ng-view>
+   </div>
+   
+   <!-- Templates -->
+    <script type="text/ng-template" id="/todos.html">
+    <div class="panel panel-primary">
+    <div class="panel-heading">
+        <h1 class="panel-title"><%= title %></h1>
+    </div>
+    <div class="panel-body">
+        <h4><span class="badge">{{remaining()}}</span> Todos of <span class="badge">{{todos.length}}</span> remaining</h4>
+        <h5>Search Todos:</h5> 
+        <input type="text" ng-model="search.name" id="searchTodo" placeholder="Todo to find" class="form-control">
+
+            <ul class="list-group">
+                <li class="list-group-item active">Current Todos</li>
+                <li ng-repeat="todo in todos | filter: search" class="list-group-item">
+                <div class="btn-group">
+                      <button type="button" ng-show="!editing[$index]" ng-click="edit($index)" class="btn btn-default "><span class="glyphicon glyphicon-edit"></span></button>
+                      
+                  </div>
+                <span ng-show="editing[$index]">complete?</span>
+                <input type="checkbox" ng-model="todo.completed" ng-change="update($index)">
+                <span class="todos">
+                  <a ng-show="!editing[$index]" href="#/{{todo._id}}" class="completed-{{todo.completed}}">{{todo.name}}</a></span>
+                  
+                  <input ng-show="editing[$index]" type="text" ng-model="todo.name" class="form-control">
+                  <div class="btn-group">
+                      <button type="button" ng-show="editing[$index]" ng-click="update($index)" class="btn btn-warning">update</button>
+                      <button type="button" ng-show="editing[$index]" ng-click="remove($index)" class="btn btn-danger">remove</button>
+                      <button type="button" ng-show="editing[$index]" ng-click="cancel($index)" class="btn btn-default">cancel</button>
+                  </div>
+                </li>
+            </ul>
+
+            <h5>New Todo</h5> 
+            <input type="text" ng-model="newTodo" id="newTodo" placeholder="Add a new Todo" class="form-control">
+            <button  type="button" ng-click="save()" class="btn btn-primary">Create</button>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/ng-template" id="/todoDetails.html">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h2 class="panel-title">{{ todo.name }}</h2>
+      </div>
+      <div class="panel-body">
+          <h3>complete? <input type="checkbox" ng-model="todo.completed"></h3> 
+          <div class="well well-sm">
+            <h3>note:</h3> 
+            <textarea ng-model="todo.note" class="form-control"></textarea><br><br>
+          </div>
+          <div class="btn-group">
+              <button type="button" ng-click="update()" class="btn btn-warning">update</button>
+              <button type="button" ng-click="remove()" class="btn btn-danger">remove</button>
+              <button type="button" ng-click="cancel()" class="btn btn-default">cancel</button>
+          </div>
+          
+      </div>
+    </div>
+      
+    </script>
+    
+    <% include common/footer %>
+  </body>
+</html>
